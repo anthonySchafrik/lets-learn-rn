@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
 
 import GoalItem from './Components/GoalItem';
 import GoalInput from './Components/GoalInput';
 
 export default function App() {
   const [userGoal, handleUserGoal] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const setUserGoal = setGoal => () =>
+  const setUserGoal = setGoal => () => {
     handleUserGoal([
       ...userGoal,
       { id: Math.random().toString(), value: setGoal }
     ]);
+
+    setIsVisible(false);
+  };
 
   const removeGoalHandler = goalId => () =>
     handleUserGoal(userGoal.filter(goal => goal.id !== goalId));
 
   return (
     <View style={styles.container}>
-      <GoalInput handleGoalAdd={setUserGoal} />
+      <Button title="Add Goal" onPress={() => setIsVisible(true)} />
+
+      <GoalInput handleGoalAdd={setUserGoal} isVisible={isVisible} />
 
       <FlatList
         data={userGoal}
