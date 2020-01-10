@@ -8,7 +8,7 @@ export default function App() {
   const [userGoal, handleUserGoal] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
 
-  const setUserGoal = setGoal => () => {
+  const setUserGoal = setGoal => {
     handleUserGoal([
       ...userGoal,
       { id: Math.random().toString(), value: setGoal }
@@ -24,7 +24,11 @@ export default function App() {
     <View style={styles.container}>
       <Button title="Add Goal" onPress={() => setIsVisible(true)} />
 
-      <GoalInput handleGoalAdd={setUserGoal} isVisible={isVisible} />
+      <GoalInput
+        handleGoalAdd={setUserGoal}
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+      />
 
       <FlatList
         data={userGoal}

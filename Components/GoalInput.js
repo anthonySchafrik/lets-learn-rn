@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Modal } from 'react-native';
 
-const GoalInput = ({ handleGoalAdd, isVisible }) => {
+const GoalInput = ({ handleGoalAdd, isVisible, setIsVisible }) => {
   const [setGoal, handleSetGoal] = useState('');
 
   const setGoalText = goalText => handleSetGoal(goalText);
+
+  const addGoal = () => {
+    handleGoalAdd(setGoal);
+    handleSetGoal('');
+  };
 
   return (
     <Modal visible={isVisible}>
@@ -15,7 +20,20 @@ const GoalInput = ({ handleGoalAdd, isVisible }) => {
           value={setGoal}
           style={styles.goalInput}
         />
-        <Button title="Add" onPress={handleGoalAdd(setGoal)} />
+
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Add" onPress={addGoal} />
+          </View>
+
+          <View style={styles.button}>
+            <Button
+              title="Cancel"
+              color="red"
+              onPress={() => setIsVisible(false)}
+            />
+          </View>
+        </View>
       </View>
     </Modal>
   );
@@ -33,6 +51,15 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     padding: 10,
     width: '80%'
+  },
+  buttonContainer: {
+    width: '80%',
+    marginTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  },
+  button: {
+    width: '25%'
   }
 });
 
