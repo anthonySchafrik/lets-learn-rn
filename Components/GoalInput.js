@@ -12,7 +12,7 @@ const GoalInput = ({ handleGoalAdd, isVisible, setIsVisible }) => {
   };
 
   return (
-    <Modal visible={isVisible}>
+    <Modal visible={isVisible} animationType="slide">
       <View style={styles.container}>
         <TextInput
           placeholder="Course Goal"
